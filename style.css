@@ -1,0 +1,125 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f1f1f1;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    height: 100vh;
+}
+
+aside {
+    background-color: #222;
+    color: white;
+    width: 260px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+aside img {
+    border-radius: 50%;
+    width: 90px;
+    height: 90px;
+    margin-bottom: 10px;
+}
+
+aside h3 {
+    margin: 0;
+}
+
+.info {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.info div {
+    margin: 10px 0;
+}
+
+main {
+    flex: 1;
+    background-color: white;
+    padding: 20px 40px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    box-shadow: -4px 0 10px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+}
+
+h2 {
+    margin-bottom: 10px;
+}
+
+.tabs {
+    display: flex;
+    margin-bottom: 15px;
+}
+
+.tabs button {
+    flex: 1;
+    padding: 10px;
+    background: #ddd;
+    border: none;
+    cursor: pointer;
+}
+
+.tabs button.active {
+    background: #4b6cb7;
+    color: white;
+    font-weight: bold;
+}
+
+.form-section {
+    background: #fafafa;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.form-section input {
+    width: 48%;
+    padding: 8px;
+    margin: 5px 1%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.form-section button {
+    display: block;
+    margin: 10px auto;
+    padding: 10px 20px;
+    border: none;
+    background-color: #4b6cb7;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.atividades {
+    background: #fafafa;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.atividade {
+    display: flex;
+    align-items: center;
+    background: #fff;
+    padding: 10px;
+    border-radius: 8px;
+    margin: 8px 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.atividade img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+.atividade-info p {
+    margin: 4px 0;
+    font-size: 14px;
+}

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>App de Atividades</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f3f3f3;
+      margin: 0;
+      padding: 20px;
+    }
+    h1, h2 {
+      text-align: center;
+      color: #333;
+    }
+    form {
+      background: white;
+      padding: 15px;
+      margin: 10px auto;
+      width: 300px;
+      border-radius: 10px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.2);
+    }
+    input, button, select {
+      width: 100%;
+      margin-bottom: 10px;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      background-color: #007bff;
+      color: white;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    #atividades {
+      margin-top: 20px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .atividade {
+      background: white;
+      border-radius: 10px;
+      padding: 10px;
+      margin-bottom: 10px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body>
+
+  <h1> App de Atividades</h1>
+
+  <!-- Formulário de Registro -->
+  <form id="formRegistro">
+    <h2>Registrar</h2>
+    <input type="text" id="registroNome" placeholder="Nome de usuário" required>
+    <input type="password" id="registroSenha" placeholder="Senha" required>
+    <button type="submit">Registrar</button>
+  </form>
+
+  <!-- Formulário de Login -->
+  <form id="formLogin">
+    <h2>Login</h2>
+    <input type="text" id="loginNome" placeholder="Nome de usuário" required>
+    <input type="password" id="loginSenha" placeholder="Senha" required>
+    <button type="submit">Entrar</button>
+  </form>
+
+  <!-- Formulário de Atividade -->
+  <form id="formAtividade" style="display:none;">
+    <h2>Nova Atividade</h2>
+    <input type="text" id="tipo" placeholder="Tipo (ex: Corrida)" required>
+    <input type="number" id="distancia" placeholder="Distância (km)" required step="0.01">
+    <input type="number" id="duracao" placeholder="Duração (min)" required>
+    <input type="number" id="calorias" placeholder="Calorias" required>
+    <button type="submit">Salvar</button>
+  </form>
+
+  <div id="atividades" style="display:none;">
+    <h2>Atividades do Usuário</h2>
+    <div id="listaAtividades"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
