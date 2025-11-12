@@ -1,93 +1,289 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
   <title>App de Atividades</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: #f3f3f3;
       margin: 0;
-      padding: 20px;
+      font-family: "Segoe UI", sans-serif;
+      background-color: #f2f2f2;
+      display: flex;
+      height: 100vh;
     }
-    h1, h2 {
-      text-align: center;
-      color: #333;
+
+    /* Menu lateral */
+    .sidebar {
+      width: 260px;
+      background: #1c1c1c;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px 0;
     }
-    form {
-      background: white;
-      padding: 15px;
-      margin: 10px auto;
-      width: 300px;
-      border-radius: 10px;
-      box-shadow: 0 0 5px rgba(0,0,0,0.2);
+
+    .sidebar img {
+      border-radius: 50%;
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      margin-bottom: 15px;
     }
-    input, button, select {
-      width: 100%;
+
+    .username {
+      font-weight: bold;
+      font-size: 18px;
       margin-bottom: 10px;
-      padding: 8px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
     }
+
+    .stats {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .stats p {
+      margin: 5px 0;
+    }
+
+    .menu {
+      width: 100%;
+      padding: 10px;
+      background: #292929;
+      text-align: center;
+      color: #a3a3ff;
+      font-weight: bold;
+    }
+
+    /* Conteúdo principal */
+    .content {
+      flex: 1;
+      padding: 30px;
+      overflow-y: auto;
+    }
+
+    .tabs {
+      display: flex;
+      margin-bottom: 15px;
+    }
+
+    .tab {
+      flex: 1;
+      text-align: center;
+      padding: 10px;
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+    }
+
+    .tab.active {
+      border-bottom: 3px solid #007bff;
+      color: #007bff;
+    }
+
+    .card {
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    input {
+      width: 100%;
+      padding: 8px;
+      margin: 5px 0 10px 0;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
     button {
+      width: 100%;
+      padding: 10px;
+      border: none;
       background-color: #007bff;
       color: white;
+      border-radius: 6px;
       cursor: pointer;
+      font-weight: bold;
     }
+
     button:hover {
       background-color: #0056b3;
     }
-    #atividades {
-      margin-top: 20px;
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
+
+    .activity {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #eee;
+      padding: 10px 0;
     }
-    .atividade {
+
+    .activity img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+
+    .activity-info {
+      flex: 1;
+    }
+
+    .activity small {
+      color: gray;
+    }
+
+    .login-box {
       background: white;
       border-radius: 10px;
-      padding: 10px;
-      margin-bottom: 10px;
-      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+      padding: 20px;
+      max-width: 350px;
+      margin: auto;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
     }
+
   </style>
 </head>
 <body>
-
-  <h1> App de Atividades</h1>
-
-  <!-- Formulário de Registro -->
-  <form id="formRegistro">
-    <h2>Registrar</h2>
-    <input type="text" id="registroNome" placeholder="Nome de usuário" required>
-    <input type="password" id="registroSenha" placeholder="Senha" required>
-    <button type="submit">Registrar</button>
-  </form>
-
-  <!-- Formulário de Login -->
-  <form id="formLogin">
-    <h2>Login</h2>
-    <input type="text" id="loginNome" placeholder="Nome de usuário" required>
-    <input type="password" id="loginSenha" placeholder="Senha" required>
-    <button type="submit">Entrar</button>
-  </form>
-
-  <!-- Formulário de Atividade -->
-  <form id="formAtividade" style="display:none;">
-    <h2>Nova Atividade</h2>
-    <input type="text" id="tipo" placeholder="Tipo (ex: Corrida)" required>
-    <input type="number" id="distancia" placeholder="Distância (km)" required step="0.01">
-    <input type="number" id="duracao" placeholder="Duração (min)" required>
-    <input type="number" id="calorias" placeholder="Calorias" required>
-    <button type="submit">Salvar</button>
-  </form>
-
-  <div id="atividades" style="display:none;">
-    <h2>Atividades do Usuário</h2>
-    <div id="listaAtividades"></div>
+  <div class="sidebar" id="sidebar" style="display:none;">
+    <img src="svg/person-fill.svg" alt="User">
+    <div class="username" id="nomeUsuario">Usuário</div>
+    <div class="stats">
+      <p><b id="qtdAtividades">0</b> Atividades</p>
+      <p><b id="qtdCalorias">0</b> Calorias</p>
+    </div>
+    <div class="menu">Atividade</div>
+  
   </div>
 
-  <script src="script.js"></script>
+  <div class="content" id="content">
+    <div id="loginContainer">
+      <div class="login-box">
+        <h2>Login / Registro</h2>
+        <input id="usuario" placeholder="Usuário" />
+        <input id="senha" type="password" placeholder="Senha" />
+        <button onclick="registrar()">Registrar</button><br>
+        <button onclick="login()">Login</button><br>
+      </div>
+    </div>
+
+    <div id="appContainer" style="display:none;">
+      <div class="tabs">
+        <div class="tab active" id="tabCorrida" onclick="selecionarTipo('Corrida')">Corrida</div>
+        <div class="tab" id="tabCaminhada" onclick="selecionarTipo('Caminhada')">Caminhada</div>
+      </div>
+
+      <div class="card">
+        <h3>Crie sua atividade</h3>
+        <input id="distancia" placeholder="Distância (km)" />
+        <input id="duracao" placeholder="Duração (min)" />
+        <input id="calorias" placeholder="Calorias" />
+        <button onclick="criarAtividade()">Adicionar Atividade</button>
+      </div>
+
+      <div class="card">
+        <h3>Suas Atividades</h3>
+        <div id="listaAtividades"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const API = "http://localhost:3000";
+    let usuarioLogado = null;
+    let tipoSelecionado = "Corrida";
+
+    function selecionarTipo(tipo) {
+      tipoSelecionado = tipo;
+      document.getElementById("tabCorrida").classList.remove("active");
+      document.getElementById("tabCaminhada").classList.remove("active");
+      document.getElementById("tab" + tipo).classList.add("active");
+    }
+
+    async function registrar() {
+      const nome_usuario = usuario.value.trim();
+      const senhaValue = senha.value.trim();
+      if (!nome_usuario || !senhaValue) return alert("Preencha todos os campos!");
+      const res = await fetch(`${API}/register`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ nome_usuario, senha: senhaValue })
+      });
+      if (res.ok) alert("Usuário registrado!");
+      else alert("Erro ao registrar.");
+    }
+
+    async function login() {
+      const nome_usuario = usuario.value.trim();
+      const senhaValue = senha.value.trim();
+      if (!nome_usuario || !senhaValue) return alert("Preencha todos os campos!");
+      const res = await fetch(`${API}/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ nome_usuario, senha: senhaValue })
+      });
+
+      if (!res.ok) return alert("Usuário ou senha inválidos!");
+      usuarioLogado = await res.json();
+
+      document.getElementById("loginContainer").style.display = "none";
+      document.getElementById("sidebar").style.display = "flex";
+      document.getElementById("appContainer").style.display = "block";
+      document.getElementById("nomeUsuario").innerText = usuarioLogado.nome_usuario;
+
+      listarAtividades();
+    }
+
+    async function criarAtividade() {
+      const distanciaValue = distancia.value.trim();
+      const duracaoValue = duracao.value.trim();
+      const caloriasValue = calorias.value.trim();
+
+      if (!distanciaValue || !duracaoValue || !caloriasValue)
+        return alert("Preencha todos os campos!");
+
+      await fetch(`${API}/atividade`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          usuario_id: usuarioLogado.id,
+          tipo: tipoSelecionado,
+          distancia: distanciaValue,
+          duracao: duracaoValue,
+          calorias: caloriasValue
+        })
+      });
+
+      distancia.value = "";
+      duracao.value = "";
+      calorias.value = "";
+      listarAtividades();
+    }
+
+    async function listarAtividades() {
+      const res = await fetch(`${API}/atividades/${usuarioLogado.id}`);
+      const atividades = await res.json();
+      const lista = document.getElementById("listaAtividades");
+      lista.innerHTML = "";
+
+      let totalCalorias = 0;
+      atividades.forEach((a) => {
+        totalCalorias += a.calorias;
+        lista.innerHTML += `
+          <div class="activity">
+            <img src="https://i.imgur.com/w1XyU0r.png" alt="Avatar">
+            <div class="activity-info">
+              <strong>${usuarioLogado.nome_usuario}</strong> — ${a.tipo}<br>
+              <small>${a.distancia} km • ${a.duracao} min • ${a.calorias} cal</small>
+            </div>
+          </div>
+        `;
+      });
+
+      document.getElementById("qtdAtividades").innerText = atividades.length;
+      document.getElementById("qtdCalorias").innerText = totalCalorias;
+    }
+  </script>
 </body>
 </html>
